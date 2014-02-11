@@ -1,7 +1,7 @@
 $(document).ready(function() {
+  console.log("is this javascript even running?")
   $('#form').submit(function(e) {
     e.preventDefault();
-
     var tweet = {tweet_text: $("#tweet_text").val()};
     $('#tweet_text').prop('disabled', true);
     $(".container").append("<img id='balls' src='ajax-loader.gif'/>")
