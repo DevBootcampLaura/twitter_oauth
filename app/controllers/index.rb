@@ -25,6 +25,17 @@ get '/auth' do
   @user = User.find_or_create_by(username: @access_token.params[:screen_name])
   @user.update(oauth_token: @access_token.token, oauth_secret: @access_token.secret)
   @user.save
+  session[:username] = @user.username
 
   erb :index
+end
+
+post '/ajax_tweet' do
+  user = User.find_by_username(session[:username])
+  begin
+    user.twitter_client.update(params[:tweet_text])
+    "Great success!"
+  rescue
+    "Error: your tweet was not tweeted you twat."
+  end
 end
